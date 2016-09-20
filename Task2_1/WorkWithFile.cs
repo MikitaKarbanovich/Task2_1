@@ -37,10 +37,14 @@ namespace Task2_1
         public string EndOfSentence(string input)
         {
             string pattern = "[.]";
-            string replacement=".\n";
+            string replacement= "."+ DataStampe() + "\n";
             Regex rgx = new Regex(pattern);
             string result = rgx.Replace(input, replacement);
             return result;
+        }
+        public string DataStampe() {
+            DateTime dateValue = DateTime.Now;
+            return dateValue.ToString("MM/dd/yyyy hh:mm:ss.fff tt");
         }
 
     }

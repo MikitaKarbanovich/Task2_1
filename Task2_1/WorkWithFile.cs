@@ -14,30 +14,37 @@ namespace Task2_1
             int counter = 0;
             string line;
             string modifiedLine;
-            // Read the file and display it line by line.
-            System.IO.StreamReader file = new System.IO.StreamReader(@"d:\test.txt");
-            while ((line = file.ReadLine()) != null)
+            try
             {
-                modifiedLine = UpperToLower(line);
-                modifiedLine=EndOfSentence(modifiedLine);
-                System.Console.WriteLine(modifiedLine);
-                counter++;
+                System.IO.StreamReader file = new System.IO.StreamReader(@"d:\test2.txt");
+                while ((line = file.ReadLine()) != null)
+                {
+                    modifiedLine = UpperToLower(line);
+                    modifiedLine = EndOfSentence(modifiedLine);
+                    System.Console.Write(DataStampe() + " ");
+                    System.Console.WriteLine(modifiedLine);
+                    counter++;
+                }
+                file.Close();
+                System.Console.WriteLine("There were {0} lines.", counter);
+                System.Console.ReadLine();
             }
-            file.Close();
-            System.Console.WriteLine("There were {0} lines.", counter);
-            // Suspend the screen.
-            System.Console.ReadLine();
+            catch (System.IO.IOException e)
+            {
+                Console.WriteLine("Error reading from {0}. Message = {1}", @"d:\test2.txt", e.Message);
+            }
+  
         }
         public string UpperToLower(string input)
         {
             if (String.IsNullOrEmpty(input))
-                throw new ArgumentException("ARGH!");
+                throw new ArgumentException("Error: null or empty");
             return input.ToLower();
         }
         public string EndOfSentence(string input)
         {
             string pattern = "[.]";
-            string replacement= "."+ DataStampe() + "\n";
+            string replacement= ".\n"+ DataStampe();
             Regex rgx = new Regex(pattern);
             string result = rgx.Replace(input, replacement);
             return result;
